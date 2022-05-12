@@ -1,0 +1,108 @@
+
+
+Instalarlo en MX Linux 19.3
+
+
+descargar el codigo fuente de:
+
+git clone https://github.com/axiak/xvidcap-pulseaudio/
+
+
+Además hay recrear los enlaces simbólicos para:
+
+/xvidcap-pulseaudio/COPYING  hacia  usr/share/automake-1.16/COPYING
+/xvidcap-pulseaudio/depcomp  hacia  usr/share/automake-1.16/depcomp
+/xvidcap-pulseaudio/ffmpeg   hacia  usr/bin/ffmpeg
+/xvidcap-pulseaudio/INSTALL  hacia  usr/share/automake-1.16/INSTALL
+/xvidcap-pulseaudio/install-sh  hacia  usr/share/automake-1.16/install-sh
+/xvidcap-pulseaudio/missing  hacia  usr/share/automake-1.16/missing
+
+porque los originales apuntan a un sistema operativo anterior, y para que funcione hay que hacerlos apuntar bien como arriba explico
+
+DEPENDENCIAS:
+
+sudo apt install libglade2-dev libxmu-dev docbook-utils docbook-to-man docbook2x gnome-doc-utils libxml-perl libavcodec-dev libflac-dev libdbus-glib-1-dev
+
+
+descargar:
+
+https://packages.debian.org/stretch/scrollkeeper
+
+e instalarlo.
+
+
+
+En la carpeta del código fuente entrar en el subdirectorio: 
+
+debian
+
+editar el archivo:
+
+rules
+
+Cambie la linea:
+
+CFLAGS = -Wall -g
+
+por:
+
+CFLAGS = -Wall -g -lX11 -ldl -lXext
+
+
+Ahora si Compilarlo así:
+
+
+
+autoreconf --install
+LIBS="-lXext -lX11" ./configure --with-x --enable-libmp3lame --enable-libtheora --without-forced-embedded-ffmpeg
+
+LIBS="-lXext -lX11" ./configure --enable-libmp3lame --enable-libtheora --without-forced-embedded-ffmpeg
+
+make
+sudo make install
+
+
+
+************************************************************
+<br> <br/>
+pero hay un problema, se crea sin audio, para reparar eso poner:
+
+
+padsp xvidcap --audio yes --cap_geometry 1280x720[+200+200] --fps 30 --quality 100 --file "Su video.mov"
+
+Soporte para audio no presente en este binario.
+
+xvidcap audio support is not present in this binary
+
+
+
+
+************************************************************
+
+
+
+Then use 
+
+dpkg-buildpackage -rfakeroot 
+
+to build a Debian package.
+
+************************************************************
+
+debuild -us -uc 
+
+
+
+
+
+BASADO EN:
+
+Bug #1113263 “./configure fails with cannot run /bin/bash ./conf...” : Bugs : Guitar Tuner
+https://bugs.launchpad.net/guitartuner/+bug/1113263
+
+axiak/xvidcap-pulseaudio: Xvidcap support for native pulseaudio and maybe alsa
+https://github.com/axiak/xvidcap-pulseaudio
+
+
+
+

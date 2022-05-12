@@ -1,0 +1,134 @@
+
+XvidCap para grabe video con audio en Debian 10 Buster y derivados como antiX 9
+
+Descargarlo desde:
+
+https://sourceforge.net/projects/xvidcap/files/xvidcap/1.1.7/
+
+la versión para Jaunty
+
+Para que grabe sonido hay que poner en la terminal padsp antes de los comandos de trabajo en la terminal, así
+
+######################
+
+Instalar ALSA OSS
+
+sudo apt install alsa-oss 
+
+poner en la terminal:
+
+sudo modprobe snd-pcm-oss 
+
+y para lanzar ponga:
+
+
+#######################
+
+
+***********                    
+720p 30 fps 
+***********
+                    
+Con audio a 30 fps, calidad 100% y 720p en MOV
+
+padsp xvidcap --audio yes --cap_geometry 1280x720[+200+200] --fps 30 --quality 100 --file "Su video.mov"
+
+Con audio a 30 fps, calidad 100% y 720p en MPG
+
+padsp xvidcap --audio yes --audio_bits 128 --cap_geometry 1280x720[+200+200] --fps 30 --quality 100 --file "Su video.mpg"
+
+Con audio a 30 fps, calidad 100% y 720p en AVI
+
+padsp xvidcap --audio yes --audio_bits 128 --cap_geometry 1280x720[+200+200] --fps 30 --quality 100 --file $(date '+%Y-%m-%d-%H:%M:%S-')"XvidCap.avi"
+
+
+
+***********                    
+480p 30 fps 
+***********
+                    
+Con audio a 30 fps, calidad 100% y 480p en MOV
+
+padsp xvidcap --audio yes --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file "Suvideo.mov"
+
+aoss xvidcap --audio yes --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file "Suvideo.mov"
+
+#################################################
+
+Con audio a 30 fps, calidad 100% y 480p en MPG
+
+padsp xvidcap --audio yes --audio_bits 128 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file "Su video.mpg"
+
+aoss xvidcap --audio yes --audio_bits 128 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file test-0000.mpeg
+
+aoss xvidcap --audio yes --audio_bits 128 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file test-0000.avi
+
+aoss xvidcap --audio yes --audio_bits 128 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file test-0000.mov
+
+
+aoss xvidcap --audio yes --source x11 --audio_bits 128 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file test-0000.mov
+
+
+aoss xvidcap --audio yes --audio_bits 160 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --codec mpeg4 --file "Su video.mpg"
+
+************************************************************
+Quitando que el video a veces al reproducirlo se distorciona
+************************************************************
+Quitando el comando:  --audio_bits 128 y dejando que el programa lo escoja automáticamente, se mejora, no se ha distorcionado:
+
+aoss xvidcap --audio yes --source x11 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file test-0000.avi
+
+aoss xvidcap --audio yes --source x11 --cap_geometry 854x480[+200+200] --fps 30 --file test-0000.avi
+
+
+###############################################
+
+Con audio a 30 fps, calidad 100% y 480p en AVI
+
+padsp xvidcap --audio yes --audio_bits 128 --cap_geometry 854x480[+200+200] --fps 30 --quality 100 --file $(date '+%Y-%m-%d-%H:%M:%S-')"XvidCap.avi"
+
+
+
+***********                    
+360p 30 fps 
+***********
+
+Esta configuración yo la uso para hacer Gif para mis videos los cuales videos los convierto con ezgif.com 
+
+Con audio a 30 fps, calidad 100% y 360p en MOV
+
+padsp xvidcap --audio yes --cap_geometry 640x360[+200+200] --fps 30 --quality 100 --file "Su video.mov"
+
+Con audio a 30 fps, calidad 100% y 360p en MPG
+
+padsp xvidcap --audio yes --cap_geometry 640x360[+200+200] --fps 30 --quality 100 --file "Su video.mpg"
+
+Con audio a 30 fps, calidad 100% y 360p en AVI
+
+padsp xvidcap --audio yes --cap_geometry 640x360[+200+200] --fps 30 --quality 100 --file "Su video.avi"
+
+
+
+Sin audio
+
+padsp xvidcap --audio no --cap_geometry 1024x768[+0+0] --rescale 50 --file test.mpg
+
+
+Ver también en la ayuda del programa, poner en la terminal:
+
+xvidcap --help
+
+
+
+
+
+la siguiente resolución también funciona
+
+680x470
+
+
+CONSULTAS:
+
+http://tombuntu.com/index.php/2007/11/06/record-your-screen-with-xvidcap/
+
+http://linux.byexamples.com/archives/231/create-screencast-using-xvidcap/
